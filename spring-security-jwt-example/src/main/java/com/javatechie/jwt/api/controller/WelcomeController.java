@@ -47,13 +47,13 @@ public class WelcomeController {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken
-                    (authRequest.getUserName(), 
+                    (authRequest.getUsername(), 
                     		authRequest.getPassword())
             );
         } catch (Exception ex) {
             throw new Exception("inavalid username/password");
         }
-       return jwtUtil.generateToken(authRequest.getUserName());
+       return jwtUtil.generateToken(authRequest.getUsername());
         //return ResponseEntity.ok(jwtUtil.generateToken(authRequest.getUserName()));
     }
     
