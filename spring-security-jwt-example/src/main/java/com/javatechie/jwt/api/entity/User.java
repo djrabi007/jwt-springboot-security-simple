@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -15,7 +17,8 @@ import javax.persistence.Table;
 //@Table(name = "USER_TBL")
 public class User {
     @Id
-    private int id;
+    @GeneratedValue(strategy=GenerationType.AUTO)//Added by Rabi
+    private long id;
     private String name;
     private String password;
     private String email;
@@ -24,7 +27,7 @@ public class User {
     	
     }
 
-	public User(int id, String name, String password, String email) {
+	public User(long id, String name, String password, String email) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,13 +35,13 @@ public class User {
 		this.email = email;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	/*public void setId(int id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getName() {
 		return name;

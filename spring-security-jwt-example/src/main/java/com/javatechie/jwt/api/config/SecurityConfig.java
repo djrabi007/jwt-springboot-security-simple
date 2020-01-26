@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import java.lang.Object;
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -48,10 +50,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http.cors(); //Allow Angular to Access
-    	http.csrf().disable().authorizeRequests().antMatchers("/authenticate")
+    	http.csrf().disable().authorizeRequests().antMatchers(allowList())
                 .permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
+    /**
+     * Allowed/Authenticated URL 
+     * @return
+     */
+    private String[] allowList() {
+		String[] allowList =
+					{ "/authenticate" 
+					,"/register"
+					,"/swagger-ui.html", "/webjars/**","/swagger-resources/**","/v2/api-docs" //Swager enabled
+					 ,"/rabi"  //TODO : Removed Later
+					// ,"/allUsers"
+					};
+		return allowList;
+	}
 }

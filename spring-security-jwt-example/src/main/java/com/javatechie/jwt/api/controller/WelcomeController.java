@@ -57,6 +57,24 @@ public class WelcomeController {
         //return ResponseEntity.ok(jwtUtil.generateToken(authRequest.getUserName()));
     }
     
+    /*@PostMapping("/register")
+    public User registerUser(@RequestBody User user) throws Exception {
+        	return repository.save(user);
+    }*/
+    
+    @PostMapping("/register")
+    public String registerUser(@RequestBody User user) 
+    		throws Exception {
+    		repository.save(user);
+        	return "Successfully Registerd  "
+    				+user.getName() +"!!!";
+    }
+    
+    @GetMapping("/rabi")
+    public  List<User> rabi() {
+    	return repository.findAll();
+    }
+    
     /**
      * ****Checking TOKEN only....NOT Password*********
      * *****Password retrieved from Database and populate Security Object******
